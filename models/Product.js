@@ -21,33 +21,40 @@ Product.init(
     product_name: {
       type: DataTypes.STRING,
       allowNull: false,
-      // allowDefaul: true
 
     },
     price: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.DECIMAL(10,2),
       validate: {
         isDecimal: true
       }
 
     },
     stock: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
       allowNull: false,
-      allowDefault: 10, or true?
+      defaultValue: 10,
+      validate: {
+        isNumeric: true,
+      }
     },
     category_id:{
-      type: DataTypes.INTEGAR,
-      
-    }
-  
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'category',
+        key: 'id',
+        
+      }
+
+    },
+  },
   {
     sequelize,
     timestamps: false,
     freezeTableName: true,
     underscored: true,
     modelName: 'product',
-  }
+  },
 );
 
 module.exports = Product;
